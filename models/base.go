@@ -26,6 +26,7 @@ func init() {
 	}
 
 	db = conn
+	db.SingularTable(true)
 	db.AutoMigrate(&Task{})
 }
 
