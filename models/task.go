@@ -20,3 +20,10 @@ func GetAllTasks() []*Task {
 	}
 	return tasks
 }
+
+func CreateTask(task *Task) (err error) {
+	if err = GetDB().Create(task).Error; err != nil {
+		return err
+	}
+	return nil
+}

@@ -24,9 +24,14 @@ func GetParticularTask(c *gin.Context) {
 
 func CreateNewTask(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Not implemented yet",
-	})
+	var task *models.Task
+	c.BindJSON(&task)
+	err := models.CreateTask(task)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	} else {
+		c.JSON(http.StatusOK, task)
+	}
 }
 
 func UpdateTask(c *gin.Context) {
