@@ -1,16 +1,18 @@
 package handlers
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/goujonbe/to-do-app/models"
 )
 
 func GetAllTasks(c *gin.Context) {
 	c.Header("Content-Type", "application/json")
-	c.JSON(http.StatusOK, gin.H{
-		"message": "Not implemented yet",
-	})
+	data := models.GetAllTasks()
+	fmt.Println(data)
+	c.JSON(http.StatusOK, data)
 }
 
 func GetParticularTask(c *gin.Context) {
