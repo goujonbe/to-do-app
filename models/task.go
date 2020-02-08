@@ -2,12 +2,9 @@ package models
 
 import (
 	"fmt"
-
-	"github.com/jinzhu/gorm"
 )
 
 type Task struct {
-	gorm.Model
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Complete    bool   `json:"complete"`
