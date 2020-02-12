@@ -14,12 +14,15 @@ func GetAllTasks(c *gin.Context) {
 }
 
 func GetParticularTask(c *gin.Context) {
-	taskId := c.Param("id")
-	// database query to get the task with the given id
 	c.Header("Content-Type", "application/json")
-	c.JSON(http.StatusOK, gin.H{
-		"id": taskId,
-	})
+	taskId := c.Param("id")
+	var task models.Task
+	err := models.GetParticularTask(&task, taskId)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	} else {
+		c.JSON(http.StatusOK, task)
+	}
 }
 
 func CreateNewTask(c *gin.Context) {
