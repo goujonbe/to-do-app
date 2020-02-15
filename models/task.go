@@ -29,7 +29,14 @@ func GetParticularTask(task *Task, id string) (err error) {
 }
 
 func CreateTask(task *Task) (err error) {
-	if err = GetDB().Create(task).Error; err != nil {
+	if err := GetDB().Create(task).Error; err != nil {
+		return err
+	}
+	return nil
+}
+
+func DeleteTask(task *Task, id string) (err error) {
+	if err := GetDB().Where("ID = ?", id).Delete(&task).Error; err != nil {
 		return err
 	}
 	return nil

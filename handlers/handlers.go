@@ -46,9 +46,15 @@ func UpdateTask(c *gin.Context) {
 }
 
 func DeleteTask(c *gin.Context) {
+	var task models.Task
 	taskId := c.Param("id")
-	c.Header("Content-Type", "application/json")
-	c.JSON(http.StatusOK, gin.H{
-		"id": taskId,
-	})
+	err := models.DeleteTask(&task, taskId)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"id": taskId,
+		})
+	}
+	// c.Header("Content-Type", "application/json")
 }
