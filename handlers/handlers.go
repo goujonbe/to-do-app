@@ -38,11 +38,16 @@ func CreateNewTask(c *gin.Context) {
 }
 
 func UpdateTask(c *gin.Context) {
-	taskId := c.Param("id")
 	c.Header("Content-Type", "application/json")
-	c.JSON(http.StatusOK, gin.H{
-		"id": taskId,
-	})
+	taskId := c.Param("id")
+	var task *models.Task
+	c.BindJSON(&task)
+	err := models.UpdateTask(task, taskId)
+	if err != nil {
+		c.AbortWithStatus(http.StatusNotFound)
+	} else {
+		c.JSON(http.StatusOK, task)
+	}
 }
 
 func DeleteTask(c *gin.Context) {

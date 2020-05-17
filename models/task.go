@@ -41,3 +41,10 @@ func DeleteTask(task *Task, id string) (err error) {
 	}
 	return nil
 }
+
+func UpdateTask(task *Task, id string) (err error) {
+	if err := GetDB().Where("ID = ?", id).Save(&task).Error; err != nil {
+		return err
+	}
+	return nil
+}
